@@ -1,4 +1,4 @@
-# импорты
+
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
@@ -10,7 +10,6 @@ from sqlalchemy import create_engine
 from data_store import Base, add_user, check_user
 
 
-# отправка сообщений
 class BotInterface():
     def __init__(self, comunity_token, acces_token, engine):
         self.vk = vk_api.VkApi(token=comunity_token)
@@ -29,13 +28,11 @@ class BotInterface():
                         'random_id': get_random_id()}
                        )
 
-# обработка событий / получение сообщений
 
     def event_handler(self):
         for event in self.longpoll.listen():
             if event.type == VkEventType.MESSAGE_NEW and event.to_me:
                 if not self.params:
-                    '''Логика для получения данных о пользователе'''
                     self.params = self.vk_tools.get_profile_info(event.user_id)
                 if event.text.lower() == 'привет':
                     self.message_send(
@@ -47,14 +44,12 @@ class BotInterface():
                             'Введите город для поиска в формате: "город "Название города""')
                         continue
 
-                    '''Логика для поиска анкет'''
                     self.message_send(
                         event.user_id, 'Начинаем поиск')
                     if not self.worksheets:
                         self.worksheets = self.vk_tools.search_worksheet(
                             self.params, self.offset)
 
-                    'проверка анкеты в бд в соотвествие с event.user_id'
                     worksheet = None
                     new_worksheets = []
                     for worksheet in self.worksheets:
@@ -75,7 +70,6 @@ class BotInterface():
                         attachment=photo_string
                     )
 
-                    'добавить анкету в бд в соотвествие с event.user_id'
                     add_user(self.engine, event.user_id, worksheet['id'])
                 elif event.text.lower().startswith("город "):
                     city_name = ' '.join(event.text.lower().split()[1:])
