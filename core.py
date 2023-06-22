@@ -1,4 +1,4 @@
-# импорты
+
 from datetime import datetime
 from pprint import pprint
 
@@ -6,9 +6,6 @@ import vk_api
 from vk_api.exceptions import ApiError
 
 from config import acces_token
-
-
-# получение данных о пользователе
 
 
 class VkTools:
@@ -95,7 +92,6 @@ class VkTools:
                    'comments': item['comments']['count']
                    } for item in photos['items']
                   ]
-        '''сортировка по лайкам и комментам'''
         result.sort(key=lambda x: x['likes'] + x['comments'] * 10, reverse=True)
         return result[:3]
 
