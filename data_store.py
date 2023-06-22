@@ -1,4 +1,4 @@
-# импорты
+
 import sqlalchemy as sq
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine, MetaData
@@ -17,8 +17,6 @@ class Viewed(Base):
     worksheet_id = sq.Column(sq.Integer, primary_key=True)
 
 
-# добавление записи в бд
-
 
 def add_user(engine, profile_id, worksheet_id):
     with Session(engine) as session:
@@ -27,7 +25,6 @@ def add_user(engine, profile_id, worksheet_id):
         session.commit()
 
 
-# извлечение записей из БД
 
 def check_user(engine, profile_id, worksheet_id):
     with Session(engine) as session:
