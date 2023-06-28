@@ -35,19 +35,19 @@ class BotInterface:
                 elif not self.params['city'] or not self.params['bdate']:
                     self.message_send(event.user_id, 'Проверка данных...')
                     if not self.params['city']:
-                        self.message_send(event.user_id, f"{self.params['name']}, введите ваш город")
+                        self.message_send(event.user_id, f"{self.params['name']}, Введите ваш город")
                         city = event.text.lower()
                         self.message_send(event.user_id, city)
                         self.params['city'] = city.capitalize()
                     elif self.params['city']:
-                        self.message_send(event.user_id, f"{self.params['name']}, у Вас уже введён город")
+                        self.message_send(event.user_id, f"{self.params['name']}, Вы уже ввели город")
                     if not self.params['bdate']:
                         self.message_send(event.user_id, f"{self.params['name']}, введите Вашу дату рождения")
                         bdate = event.text
                         self.message_send(event.user_id, bdate)
                         self.params['bdate'] = bdate
                     elif self.params['bdate']:
-                        self.message_send(event.user_id, f"{self.params['name']}, у Вас уже введена дата рождения")
+                        self.message_send(event.user_id, f"{self.params['name']}, Вы уже ввели дату рождения")
                 elif command == 'поиск':
                     self.message_send(
                         event.user_id, 'Начинаем поиск')
